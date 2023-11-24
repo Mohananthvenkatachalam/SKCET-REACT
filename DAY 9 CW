@@ -1,0 +1,86 @@
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { AppBar, Tabs, Tab, Container, Typography } from "@mui/material";
+
+const NavBar = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <AppBar
+      position="static"
+      sx={{ flexDirection: "row", bgcolor: "lightblue", py: 1 }}
+    >
+      <Typography variant="h4" sx={{ px: 3, color: "#000", mr: "auto" }}>
+        Music World
+      </Typography>
+
+      <Tabs value={value}>
+        <Tab onClick={() => setValue(0)} label="Home" component={Link} to="/" />
+        <Tab
+          onClick={() => setValue(1)}
+          label="Singers"
+          component={Link}
+          to="/singers"
+        />
+        <Tab
+          onClick={() => setValue(2)}
+          label="Albums"
+          component={Link}
+          to="/albums"
+        />
+      </Tabs>
+    </AppBar>
+  );
+};
+
+const Home = () => {
+  return (
+    <Container sx={{ mt: 5, textAlign: "center", marginTop: "300px" }}>
+      <Typography variant="h2">Welcome to Music World!</Typography>
+    </Container>
+  );
+};
+
+const Singers = () => {
+  return (
+    <Container sx={{ p: 5 }}>
+      <Typography variant="h2">Singers</Typography>
+      <ul>
+        {Array(5)
+          .fill()
+          .map((_, i) => (
+            <li>
+              Singer {i + 1} - {1980 + Math.floor(Math.random() * 40)}
+            </li>
+          ))}
+      </ul>
+    </Container>
+  );
+};
+
+const Albums = () => {
+  return (
+    <Container sx={{ p: 5 }}>
+      <Typography variant="h2">Albums</Typography>
+      <ul>
+        <li>Album 1 - Singer</li>
+        <li>Album 2 - Singer</li>
+        <li>Album 3 - Singer</li>
+      </ul>
+    </Container>
+  );
+};
+
+const Apps = () => {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/singers" element={<Singers />} />
+        <Route path="/albums" element={<Albums />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default Apps;
